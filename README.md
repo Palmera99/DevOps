@@ -50,8 +50,8 @@ proyecto-devops/
 
 ### Paso 1: Clonar o descargar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/proyecto-devops.git
-cd proyecto-devops
+git clone https://github.com/Palmera99/DevOps.git
+cd DevOps
 ```
 
 ### Paso 2: Configurar las variables de entorno
