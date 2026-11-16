@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaludConecta - Portal de Reserva de Horas Médicas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <span class="logo-icon">&#10010;</span>
+                <span class="logo-text">Salud<strong>Conecta</strong></span>
+            </div>
+            <div class="service-status">
+                <span class="status-dot"></span>
+                <span class="status-label">Estado del Servicio: <strong>Operativo (Docker / Nginx Alpine)</strong></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Banner Informativo -->
+        <section class="hero-card">
+            <h1>Sistema de Reserva de Horas Médicas</h1>
+            <p>Plataforma clínica integral para la programación y gestión de atenciones ambulatorias.</p>
+        </section>
+
+        <!-- Información General y Estado -->
+        <section class="info-grid">
+            <div class="card info-box">
+                <div class="card-icon">&#128340;</div>
+                <h3>Horarios de Atención</h3>
+                <p><strong>Lunes a Viernes:</strong> 08:00 - 20:00 hrs</p>
+                <p><strong>Sábados:</strong> 08:30 - 14:00 hrs</p>
+                <p>Urgencias 24/7 en sede central</p>
+            </div>
+            <div class="card info-box">
+                <div class="card-icon">&#128205;</div>
+                <h3>Ubicación y Contacto</h3>
+                <p>Av. Providencia 1240, Santiago</p>
+                <p>Mesa Central: +56 2 2800 4000</p>
+                <p>contacto@saludconecta.cl</p>
+            </div>
+            <div class="card info-box">
+                <div class="card-icon">&#9989;</div>
+                <h3>Información DevOps</h3>
+                <p><strong>Servidor Web:</strong> Nginx 1.25 (Alpine Linux)</p>
+                <p><strong>Entorno:</strong> Contenedor Docker Local</p>
+                <p><strong>Puerto:</strong> 8080 (Mapeado a puerto 80)</p>
+            </div>
+        </section>
+
+        <!-- Formulario de Reserva -->
+        <section class="booking-section">
+            <div class="card form-card">
+                <h2>Agendar Hora de Atención</h2>
+                <p class="subtitle">Complete los campos requeridos para confirmar su cita médica:</p>
+                
+                <form id="appointmentForm" onsubmit="return handleFormSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rut">RUT o Identificación *</label>
+                            <input type="text" id="rut" name="rut" placeholder="12.345.678-9" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fullName">Nombre Completo *</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Ej: Juan Pérez González" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico *</label>
+                            <input type="email" id="email" name="email" placeholder="paciente@correo.cl" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono de Contacto *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+56 9 8765 4321" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="specialty">Especialidad Médica *</label>
+                            <select id="specialty" name="specialty" required>
+                                <option value="" disabled selected>Seleccione especialidad</option>
+                                <option value="medicina-general">Medicina General</option>
+                                <option value="pediatria">Pediatría</option>
+                                <option value="cardiologia">Cardiología</option>
+                                <option value="traumatologia">Traumatología</option>
+                                <option value="oftalmologia">Oftalmología</option>
+                                <option value="dermatologia">Dermatología</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="professional">Profesional de la Salud</label>
+                            <select id="professional" name="professional">
+                                <option value="any">Cualquier profesional disponible</option>
+                                <option value="dr-morales">Dr. Carlos Morales (Cardiología)</option>
+                                <option value="dra-fuentes">Dra. Andrea Fuentes (Pediatría)</option>
+                                <option value="dr-castro">Dr. Javier Castro (Medicina General)</option>
+                                <option value="dra-reyes">Dra. Marcela Reyes (Traumatología)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Fecha de la Cita *</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Bloque Horario *</label>
+                            <select id="time" name="time" required>
+                                <option value="" disabled selected>Seleccione horario</option>
+                                <option value="09:00">09:00 - 09:30 hrs</option>
+                                <option value="10:00">10:00 - 10:30 hrs</option>
+                                <option value="11:30">11:30 - 12:00 hrs</option>
+                                <option value="15:00">15:00 - 15:30 hrs</option>
+                                <option value="16:30">16:30 - 17:00 hrs</option>
+                                <option value="18:00">18:00 - 18:30 hrs</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Motivo o Síntomas (Opcional)</label>
+                        <textarea id="notes" name="notes" rows="3" placeholder="Describa brevemente el motivo de la consulta..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Confirmar Reserva de Hora</button>
+                        <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
+                    </div>
+                </form>
+
+                <div id="confirmationAlert" class="alert-success" style="display: none;">
+                    <h4>&#10004; Solicitud de Reserva Registrada Exitosamente</h4>
+                    <p id="confirmationMessage">La hora ha sido reservada en el sistema. Se ha enviado un correo con el comprobante de atención.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 SaludConecta SpA - Todos los derechos reservados.</p>
+            <p>Proyecto Integrador DevOps - Semana 3 | Estudiante: Héctor Díaz Bravo - Carrera: Ingeniería en Informática</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById('appointmentForm');
+            const alertBox = document.getElementById('confirmationAlert');
+            const message = document.getElementById('confirmationMessage');
+            
+            const rut = document.getElementById('rut').value;
+            const name = document.getElementById('fullName').value;
+            const specialty = document.getElementById('specialty').options[document.getElementById('specialty').selectedIndex].text;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            message.innerHTML = `Estimado(a) <strong>${name}</strong> (RUT: ${rut}), su hora para la especialidad de <strong>${specialty}</strong> el día <strong>${date}</strong> a las <strong>${time} hrs</strong> ha sido programada correctamente.`;
+            alertBox.style.display = 'block';
+            form.reset();
+            return false;
+        }
+
+        // Set default date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('date').value = tomorrow.toISOString().split('T')[0];
+    </script>
+</body>
+</html>
